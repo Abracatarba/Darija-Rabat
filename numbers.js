@@ -1,6 +1,8 @@
-// Nombres Darija Rabat — ajout 17/08/2026
+// Nombres Darija Rabat
 const NUMBER_DATA = [
 ['0','sifr'],['1','wa7ed'],['2','jouj'],['3','tlata'],['4','rb3a'],['5','khmsa'],['6','setta'],['7','seb3a'],['8','tmnya'],['9','tes3oud'],['10','3chra'],['11','7dach'],['12','tnach'],['13','teltach'],['14','rb3tach'],['15','khmstach'],['16','settach'],['17','seb3tach'],['18','tmntach'],['19','tes3tach'],['20','3chrin'],['21','wa7ed w 3chrin'],['22','jouj w 3chrin'],['23','tlata w 3chrin'],['24','rb3a w 3chrin'],['25','khmsa w 3chrin'],['26','setta w 3chrin'],['27','seb3a w 3chrin'],['28','tmnya w 3chrin'],['29','tes3oud w 3chrin'],['30','tlatin'],['31','wa7ed w tlatin'],['32','jouj w tlatin'],['33','tlata w tlatin'],['34','rb3a w tlatin'],['35','khmsa w tlatin'],['36','setta w tlatin'],['37','seb3a w tlatin'],['38','tmnya w tlatin'],['39','tes3oud w tlatin'],['100','mya'],['101','mya w wa7ed'],['102','mya w jouj'],['103','mya w tlata'],['104','mya w rb3a'],['105','mya w khmsa'],['106','mya w setta'],['107','mya w seb3a'],['108','mya w tmnya'],['109','mya w tes3oud'],['110','mya w 3chra'],['1000','elf'],['1001','elf w wa7ed'],['1002','elf w jouj'],['1003','elf w tlata'],['1004','elf w rb3a'],['1005','elf w khmsa'],['1006','elf w setta'],['1007','elf w seb3a'],['1008','elf w tmnya'],['1009','elf w tes3oud'],['1010','elf w 3chra'],['1100','elf w mya'],['1101','elf w mya w wa7ed'],['1102','elf w mya w jouj'],['1103','elf w mya w tlata'],['1104','elf w mya w rb3a'],['1105','elf w mya w khmsa'],['1106','elf w mya w setta'],['1107','elf w mya w seb3a'],['1108','elf w mya w tmnya'],['1109','elf w mya w tes3oud'],['1110','elf w mya w 3chra'],['10 000','3chra d l-alaf'],['100 000','mya elf'],['1 000 000','mlyoun'],['1 000 000 000','mlyar']
 ];
 NUMBER_DATA.forEach(([fr,darija])=>DATA.push({fr,darija,arabic:'',cat:'Nombres',note:'nombre',ex:`${fr} = ${darija}`}));
-renderCats();renderCards();
+if (typeof renderCats === 'function') renderCats();
+if (typeof renderCards === 'function') renderCards();
+if (typeof renderFavs === 'function') renderFavs();
