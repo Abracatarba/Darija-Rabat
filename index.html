@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Darija Rabat</title>
+<style>
+:root{--bg:#f7f4ef;--card:#fff;--text:#1f2937;--muted:#6b7280;--accent:#0f766e;--accent2:#d97706;--line:#e5e7eb}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+header{position:sticky;top:0;background:rgba(247,244,239,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:5}
+.wrap{max-width:980px;margin:auto;padding:18px}
+h1{margin:0;font-size:1.5rem} .sub{color:var(--muted);font-size:.92rem;margin-top:4px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+button,.chip{border:1px solid var(--line);background:white;border-radius:999px;padding:10px 14px;cursor:pointer;font-weight:600}
+button.active,.chip.active{background:var(--accent);color:white;border-color:var(--accent)}
+input{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:14px;font-size:1rem;background:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 4px 14px rgba(0,0,0,.04)}
+.darija{font-size:1.35rem;font-weight:800;color:var(--accent)} .arabic{font-size:1.45rem;direction:rtl;margin:8px 0}
+.meta{color:var(--muted);font-size:.88rem} .example{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:.93rem}
+.star{float:right;border:none;background:transparent;font-size:1.25rem;padding:0}
+.hidden{display:none} .quizbox{max-width:560px;margin:24px auto}
+.big{font-size:1.8rem;font-weight:800;margin:20px 0} .answer{margin-top:12px;font-size:1.15rem}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#ecfdf5;color:#065f46;font-size:.78rem;font-weight:700}
+.notice{background:#fff7ed;border:1px solid #fed7aa;padding:12px 14px;border-radius:14px;margin-top:16px;font-size:.9rem}
+footer{color:var(--muted);font-size:.8rem;text-align:center;padding:28px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>🇲🇦 Darija Rabat</h1>
+<div class="sub">Apprendre le darija de Rabat / Salé — vocabulaire, phrases et quiz.</div>
+<div class="tabs">
+<button data-tab="lexique" class="active">Lexique</button>
+<button data-tab="favoris">Favoris</button>
+<button data-tab="quiz">Quiz</button>
+</div>
+</div></header>
+<main class="wrap">
+<section id="lexique">
+<input id="search" placeholder="Chercher : faim, herres, مفاتيح…">
+<div id="cats" class="tabs"></div>
+<div class="notice">Cette v1 privilégie les formes que nous avons retenues pour Rabat/Salé. Les variantes régionales ou plus soutenues sont signalées au lieu d’être présentées comme équivalentes.</div>
+<div id="cards" class="grid"></div>
+</section>
+<section id="favoris" class="hidden"><h2>⭐ Mes favoris</h2><div id="favCards" class="grid"></div></section>
+<section id="quiz" class="hidden"><div class="card quizbox"><span class="badge">Quiz</span><div id="qPrompt" class="big"></div><input id="qInput" placeholder="Écris la réponse en darija"><div class="tabs"><button id="checkBtn">Vérifier</button><button id="nextBtn">Suivant</button></div><div id="qResult" class="answer"></div></div></section>
+</main>
+<footer>Darija Rabat — prototype v1</footer>
+<script>
+const DATA = [{"fr":"Cent","darija":"mya","arabic":"مية","cat":"Nombres","note":"forme courante","ex":"mya derham = cent dirhams"},{"fr":"Mille","darija":"elf","arabic":"ألف","cat":"Nombres","note":"forme courante","ex":"elf derham = mille dirhams"},{"fr":"Merci","darija":"choukran","arabic":"شكراً","cat":"Politesse","note":"très courant","ex":"Choukran bzzaf = merci beaucoup"},{"fr":"Pas de problème","darija":"machi mochkil","arabic":"ماشي مشكل","cat":"Politesse","note":"très courant","ex":"Machi mochkil = pas de souci"},{"fr":"Excuse-moi","darija":"sme7 lia","arabic":"سمح ليا","cat":"Politesse","note":"très courant","ex":"Sme7 lia = excuse-moi"},{"fr":"S'excuser","darija":"3tader","arabic":"اعتذر","cat":"Verbes","note":"plus soutenu que 'sme7 lia'","ex":"Khassek t3tader = tu dois t'excuser"},{"fr":"Où sont les clés ?","darija":"fin kaynin l-mfatih?","arabic":"فين كاينين المفاتيح؟","cat":"Maison","note":"courant","ex":"Fin kaynin l-mfatih?"},{"fr":"Être en retard / tarder","darija":"t3ettel","arabic":"تعتّل","cat":"Verbes","note":"forme retenue pour Rabat","ex":"Ma t3ettelch = ne sois pas en retard"},{"fr":"Je suis en retard","darija":"ana t3ettelt","arabic":"أنا تعتلت","cat":"Temps","note":"forme retenue","ex":"Sme7 lia, ana t3ettelt"},{"fr":"Je vais être en retard","darija":"ghadi nt3ettel","arabic":"غادي نتعتل","cat":"Temps","note":"courant","ex":"Ghadi nt3ettel chwia"},{"fr":"Casser","darija":"herres","arabic":"هرّس","cat":"Verbes","note":"forme privilégiée Rabat/Salé","ex":"Herrest l-kass = j'ai cassé le verre"},{"fr":"Assister à / être présent","darija":"7der","arabic":"حضر","cat":"Verbes","note":"très utile","ex":"7dert l-ijtima3 = j'ai assisté à la réunion"},{"fr":"Apparaître","darija":"ban","arabic":"بان","cat":"Verbes","note":"courant","ex":"L-qamar ban = la lune est apparue"},{"fr":"Je comprends","darija":"kanfhem","arabic":"كنفهم","cat":"Conversation","note":"présent / habitude","ex":"Kanfhem ddarija chwia"},{"fr":"Je ne comprends pas","darija":"ma kanfhemch","arabic":"ما كنفهمش","cat":"Conversation","note":"présent négatif","ex":"La, ma kanfhemch"},{"fr":"J'ai compris","darija":"fhemt","arabic":"فهمت","cat":"Conversation","note":"action accomplie","ex":"Ah, fhemt!"},{"fr":"Je n'ai pas compris","darija":"ma fhemtch","arabic":"ما فهمتش","cat":"Conversation","note":"passé négatif","ex":"Sme7 lia, ma fhemtch"},{"fr":"J'ai faim","darija":"fiya jou3","arabic":"فيا الجوع","cat":"Besoins","note":"forme choisie pour l'app","ex":"Fiya jou3 bzzaf"},{"fr":"J'ai soif","darija":"3tacht","arabic":"عطشت","cat":"Besoins","note":"courant","ex":"3tacht bzzaf"},{"fr":"Je suis allé à Rabat","darija":"mchit l-Rbat","arabic":"مشيت للرباط","cat":"Déplacements","note":"courant","ex":"Lbare7 mchit l-Rbat"},{"fr":"Oui","darija":"ah / iyeh","arabic":"آه / إيه","cat":"Conversation","note":"très courant","ex":"Ah, fhemt"},{"fr":"Non","darija":"la","arabic":"لا","cat":"Conversation","note":"très courant","ex":"La, ma bghitch"},{"fr":"S'il te plaît","darija":"3afak","arabic":"عفاك","cat":"Politesse","note":"très courant","ex":"3tini lma 3afak"},{"fr":"Où ?","darija":"fin?","arabic":"فين؟","cat":"Questions","note":"très courant","ex":"Fin ghadi? = où vas-tu?"},{"fr":"Pourquoi ?","darija":"3lach?","arabic":"علاش؟","cat":"Questions","note":"très courant","ex":"3lach? = pourquoi?"},{"fr":"Comment ?","darija":"kifach?","arabic":"كيفاش؟","cat":"Questions","note":"très courant","ex":"Kifach ndir? = comment je fais?"},{"fr":"Combien ?","darija":"ch7al?","arabic":"شحال؟","cat":"Questions","note":"très courant","ex":"Ch7al hada? = combien ça coûte?"},{"fr":"Qui ?","darija":"chkoun?","arabic":"شكون؟","cat":"Questions","note":"très courant","ex":"Chkoun hada? = c'est qui?"},{"fr":"Quoi ?","darija":"ach? / chnou?","arabic":"آش؟ / شنو؟","cat":"Questions","note":"les deux s'entendent","ex":"Ach katdir? = tu fais quoi?"},{"fr":"Je veux","darija":"bghit","arabic":"بغيت","cat":"Verbes","note":"très courant","ex":"Bghit lma = je veux de l'eau"},{"fr":"Je ne veux pas","darija":"ma bghitch","arabic":"ما بغيتش","cat":"Verbes","note":"très courant","ex":"Ma bghitch hadchi"},{"fr":"Aller / partir","darija":"mcha","arabic":"مشى","cat":"Verbes","note":"forme de base","ex":"Mcha l-dar = il est parti à la maison"},{"fr":"Je vais","darija":"kanmchi","arabic":"كنمشي","cat":"Verbes","note":"présent / habitude","ex":"Kanmchi l-khedma"},{"fr":"Je suis allé","darija":"mchit","arabic":"مشيت","cat":"Verbes","note":"passé","ex":"Mchit l-sou9"},{"fr":"Venir","darija":"ja","arabic":"جا","cat":"Verbes","note":"forme de base","ex":"Ja lyoum = il est venu aujourd'hui"},{"fr":"Je viens","darija":"kanji","arabic":"كنجي","cat":"Verbes","note":"présent / habitude","ex":"Kanji hna bzaf"},{"fr":"Manger","darija":"kla","arabic":"كلا","cat":"Verbes","note":"forme de base","ex":"Kla l-khobz"},{"fr":"Je mange","darija":"kanakol","arabic":"كناكل","cat":"Verbes","note":"présent","ex":"Kanakol daba"},{"fr":"Boire","darija":"chreb","arabic":"شرب","cat":"Verbes","note":"forme courante","ex":"Chreb lma"},{"fr":"Je bois","darija":"kanchreb","arabic":"كنشرب","cat":"Verbes","note":"présent","ex":"Kanchreb lma"},{"fr":"Eau","darija":"lma","arabic":"الما","cat":"Maison","note":"très courant","ex":"3tini lma 3afak"},{"fr":"Pain","darija":"khobz","arabic":"خبز","cat":"Nourriture","note":"très courant","ex":"Bghit khobz"},{"fr":"Argent","darija":"flous","arabic":"فلوس","cat":"Achats","note":"très courant","ex":"Ma 3ndich flous = je n'ai pas d'argent"},{"fr":"Maison","darija":"dar","arabic":"دار","cat":"Maison","note":"très courant","ex":"Ana f-dar = je suis à la maison"},{"fr":"Voiture","darija":"tomobil","arabic":"طوموبيل","cat":"Déplacements","note":"très courant","ex":"Fin hiya tomobil?"},{"fr":"Maintenant","darija":"daba","arabic":"دابا","cat":"Temps","note":"très courant","ex":"Daba ghadi nmchi"},{"fr":"Aujourd'hui","darija":"lyoum","arabic":"اليوم","cat":"Temps","note":"très courant","ex":"Lyoum ma khddamch"},{"fr":"Demain","darija":"ghdda","arabic":"غدا","cat":"Temps","note":"très courant","ex":"Ghdda nmchi"},{"fr":"Hier","darija":"lbare7","arabic":"البارح","cat":"Temps","note":"très courant","ex":"Lbare7 mchit l-Rbat"},{"fr":"Beaucoup / très","darija":"bzzaf","arabic":"بزاف","cat":"Conversation","note":"très courant","ex":"Choukran bzzaf"},{"fr":"Un peu","darija":"chwia","arabic":"شوية","cat":"Conversation","note":"très courant","ex":"Kanfhem chwia"}];
+let cat='Toutes';
+let favorites = new Set(JSON.parse(localStorage.getItem('darijaFavs')||'[]'));
+function norm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+function renderCats(){const cats=['Toutes',...new Set(DATA.map(x=>x.cat))];document.getElementById('cats').innerHTML=cats.map(c=>`<span class="chip ${c===cat?'active':''}" onclick="cat='${c}';renderCats();renderCards()">${c}</span>`).join('');}
+function card(x,i){const isFav=favorites.has(i);return `<div class="card"><button class="star" onclick="toggleFav(${i})">${isFav?'★':'☆'}</button><div class="meta">${x.cat}</div><div class="darija">${x.darija}</div><div class="arabic">${x.arabic}</div><div><strong>${x.fr}</strong></div><div class="meta">${x.note}</div><div class="example">${x.ex}</div></div>`}
+function renderCards(){const q=norm(document.getElementById('search').value);const items=DATA.map((x,i)=>[x,i]).filter(([x])=>(cat==='Toutes'||x.cat===cat)&&(!q||norm(x.fr+' '+x.darija+' '+x.arabic+' '+x.ex).includes(q)));document.getElementById('cards').innerHTML=items.map(([x,i])=>card(x,i)).join('') || '<p>Aucun résultat.</p>';}
+function renderFavs(){const arr=[...favorites];document.getElementById('favCards').innerHTML=arr.length?arr.map(i=>card(DATA[i],i)).join(''):'<p>Aucun favori pour le moment.</p>';}
+function toggleFav(i){favorites.has(i)?favorites.delete(i):favorites.add(i);localStorage.setItem('darijaFavs',JSON.stringify([...favorites]));renderCards();renderFavs();}
+document.getElementById('search').addEventListener('input',renderCards);
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.remove('active'));b.classList.add('active');['lexique','favoris','quiz'].forEach(id=>document.getElementById(id).classList.add('hidden'));document.getElementById(b.dataset.tab).classList.remove('hidden');if(b.dataset.tab==='favoris')renderFavs();if(b.dataset.tab==='quiz')newQ();});
+let qi=0;
+function newQ(){qi=Math.floor(Math.random()*DATA.length);const x=DATA[qi];document.getElementById('qPrompt').textContent=x.fr;document.getElementById('qInput').value='';document.getElementById('qResult').textContent='';}
+document.getElementById('checkBtn').onclick=()=>{const ans=norm(document.getElementById('qInput').value).replace(/[^a-z0-9]/g,'');const good=norm(DATA[qi].darija.split('/')[0]).replace(/[^a-z0-9]/g,'');document.getElementById('qResult').innerHTML = ans===good ? '✅ Correct !' : `❌ Réponse : <strong>${DATA[qi].darija}</strong> — ${DATA[qi].arabic}`;}
+document.getElementById('nextBtn').onclick=newQ;
+renderCats(); renderCards(); renderFavs();
+</script>
+</body>
+</html>
