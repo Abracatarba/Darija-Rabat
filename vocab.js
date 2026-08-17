@@ -9,6 +9,11 @@ EXTRA_VOCAB.forEach(item => {
   if (idx >= 0) DATA[idx] = item;
   else DATA.push(item);
 });
+
+// Ranger l'eau (lma) dans Nourriture.
+const lmaItem = DATA.find(x => x.darija === 'lma' || x.fr === 'Eau');
+if (lmaItem) lmaItem.cat = 'Nourriture';
+
 if (typeof renderCats === 'function') renderCats();
 if (typeof renderCards === 'function') renderCards();
 if (typeof renderFavs === 'function') renderFavs();
