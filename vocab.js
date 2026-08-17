@@ -1,4 +1,5 @@
 // Vocabulaire Darija Rabat — ajouts progressifs
+// Mise à jour de publication : 17/08/2026
 const EXTRA_VOCAB = [
   {fr:'Fourchette', darija:'fourchita', arabic:'فرشيطة', cat:'Nourriture', note:'forme retenue pour Rabat', ex:'fourchita = fourchette'},
   {fr:'Couteau', darija:'mouss', arabic:'موس', cat:'Nourriture', note:'forme retenue pour Rabat', ex:'mouss = couteau'}
