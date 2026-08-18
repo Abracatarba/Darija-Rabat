@@ -1,5 +1,5 @@
 // Vocabulaire Darija Rabat — ajouts progressifs
-// Mise à jour de publication : 17/08/2026
+// Mise à jour de publication : 18/08/2026
 const EXTRA_VOCAB = [
   {fr:'Fourchette', darija:'fourchita', arabic:'فرشيطة', cat:'Nourriture', note:'forme retenue pour Rabat', ex:'fourchita = fourchette'},
   {fr:'Couteau', darija:'mouss', arabic:'موس', cat:'Nourriture', note:'forme retenue pour Rabat', ex:'mouss = couteau'},
@@ -53,7 +53,47 @@ const EXTRA_VOCAB = [
   {fr:'Peut-être', darija:'ymken', arabic:'يمكن', cat:'Conversation', note:'forme validée', ex:'ymken = peut-être'},
   {fr:'Bien sûr', darija:'akid', arabic:'أكيد', cat:'Conversation', note:'forme validée', ex:'akid = bien sûr'},
   {fr:'J’ai un problème', darija:'3ndi mochkil', arabic:'عندي مشكل', cat:'Conversation', note:'forme validée', ex:'3ndi mochkil = j’ai un problème'},
-  {fr:'Qu’en penses-tu ?', darija:'achno ban lik?', arabic:'اشنو بان ليك؟', cat:'Questions', note:'forme validée pour l’app', ex:'achno ban lik? = qu’en penses-tu ?'}
+  {fr:'Qu’en penses-tu ?', darija:'achno ban lik?', arabic:'اشنو بان ليك؟', cat:'Questions', note:'forme validée pour l’app', ex:'achno ban lik? = qu’en penses-tu ?'},
+
+  {fr:'Délicieux', darija:'bnin', arabic:'بنين', cat:'Nourriture', note:'masculin', ex:'bnin = délicieux'},
+  {fr:'Délicieuse', darija:'bnina', arabic:'بنينة', cat:'Nourriture', note:'féminin', ex:'bnina = délicieuse'},
+  {fr:'Tu comprends ?', darija:'fhemti', arabic:'فهمتي', cat:'Conversation', note:'forme validée pour l’app', ex:'fhemti? = tu comprends ?'},
+  {fr:'Regarde ! (garçon)', darija:'chouf', arabic:'شوف', cat:'Conversation', note:'masculin', ex:'chouf = regarde !'},
+  {fr:'Regarde ! (fille)', darija:'choufi', arabic:'شوفي', cat:'Conversation', note:'féminin', ex:'choufi = regarde !'},
+  {fr:'Tu m’as compris ?', darija:'fhemtini?', arabic:'فهمتيني؟', cat:'Conversation', note:'forme validée', ex:'fhemtini? = tu m’as compris ?'},
+  {fr:'Accepter', darija:'9bel', arabic:'قبل', cat:'Verbes', note:'forme validée', ex:'9bel = accepter'},
+  {fr:'Répondre', darija:'jawab', arabic:'جاوب', cat:'Verbes', note:'forme validée pour l’app', ex:'jawab = répondre'},
+  {fr:'Conseiller', darija:'nse7', arabic:'نصح', cat:'Verbes', note:'forme validée', ex:'nse7 = conseiller'},
+  {fr:'Poser une question', darija:'sewwel', arabic:'سول', cat:'Verbes', note:'forme validée pour l’app', ex:'sewwel = poser une question'},
+  {fr:'Demander', darija:'tleb', arabic:'طلب', cat:'Verbes', note:'forme validée', ex:'tleb = demander'},
+  {fr:'Naître', darija:'tewled', arabic:'تولد', cat:'Verbes', note:'forme validée pour l’app', ex:'tewled = naître'},
+  {fr:'Emprunter', darija:'tsellef', arabic:'تسلف', cat:'Verbes', note:'forme validée', ex:'tsellef = emprunter'},
+  {fr:'Respirer', darija:'tneffes', arabic:'تنفس', cat:'Verbes', note:'forme validée', ex:'tneffes = respirer'},
+  {fr:'Apporter', darija:'jab', arabic:'جاب', cat:'Verbes', note:'forme validée', ex:'jab = apporter'},
+  {fr:'Acheter', darija:'chra', arabic:'شرا', cat:'Verbes', note:'forme validée', ex:'chra = acheter'},
+  {fr:'Changer', darija:'beddel', arabic:'بدل', cat:'Verbes', note:'forme validée', ex:'beddel = changer'},
+  {fr:'Choisir', darija:'khtar', arabic:'ختار', cat:'Verbes', note:'forme validée', ex:'khtar = choisir'},
+  {fr:'Nettoyer', darija:'ne9a', arabic:'نقى', cat:'Verbes', note:'forme validée pour l’app', ex:'ne9a = nettoyer'},
+  {fr:'Fermer', darija:'sedd', arabic:'سد', cat:'Verbes', note:'forme validée', ex:'sedd = fermer'},
+  {fr:'Peigner', darija:'mchet', arabic:'مشط', cat:'Verbes', note:'forme validée', ex:'mchet = peigner'},
+  {fr:'Venir', darija:'ja', arabic:'جا', cat:'Verbes', note:'forme validée', ex:'ja = venir'},
+  {fr:'Se concentrer', darija:'rekkez', arabic:'ركز', cat:'Verbes', note:'forme validée', ex:'rekkez = se concentrer'},
+  {fr:'Féliciter', darija:'barek', arabic:'بارك', cat:'Verbes', note:'forme validée pour l’app', ex:'barek = féliciter'},
+  {fr:'Compter', darija:'7seb', arabic:'حسب', cat:'Verbes', note:'forme validée', ex:'7seb = compter'},
+  {fr:'Pleurer', darija:'bka', arabic:'بكا', cat:'Verbes', note:'forme validée', ex:'bka = pleurer'},
+  {fr:'Maudire', darija:'n3el', arabic:'نعل', cat:'Verbes', note:'forme validée', ex:'n3el = maudire'},
+  {fr:'Couper', darija:'9te3', arabic:'قطع', cat:'Verbes', note:'forme validée', ex:'9te3 = couper'},
+  {fr:'Danser', darija:'chte7', arabic:'شطح', cat:'Verbes', note:'forme validée', ex:'chte7 = danser'},
+  {fr:'Mourir', darija:'mat', arabic:'مات', cat:'Verbes', note:'forme validée', ex:'mat = mourir'},
+  {fr:'Dessiner', darija:'rsem', arabic:'رسم', cat:'Verbes', note:'forme validée', ex:'rsem = dessiner'},
+  {fr:'Rêver', darija:'7lem', arabic:'حلم', cat:'Verbes', note:'forme validée', ex:'7lem = rêver'},
+  {fr:'Boire', darija:'chreb', arabic:'شرب', cat:'Verbes', note:'forme validée', ex:'chreb = boire'},
+  {fr:'Mériter', darija:'sate7e9', arabic:'استحق', cat:'Verbes', note:'forme validée pour l’app', ex:'sate7e9 = mériter'},
+  {fr:'Diversifier', darija:'nawwe3', arabic:'نوع', cat:'Verbes', note:'forme validée', ex:'nawwe3 = diversifier'},
+  {fr:'Douter', darija:'chekk', arabic:'شك', cat:'Verbes', note:'forme validée', ex:'chekk = douter'},
+  {fr:'Manger', darija:'kla', arabic:'كلا', cat:'Verbes', note:'forme validée', ex:'kla = manger'},
+  {fr:'Encourager', darija:'chejje3', arabic:'شجع', cat:'Verbes', note:'forme validée', ex:'chejje3 = encourager'},
+  {fr:'Entrer', darija:'dkhel', arabic:'دخل', cat:'Verbes', note:'forme validée', ex:'dkhel = entrer'}
 ];
 
 EXTRA_VOCAB.forEach(item => {
