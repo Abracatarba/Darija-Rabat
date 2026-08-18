@@ -1,4 +1,4 @@
-// Jours, saisons et mois — Darija Rabat / Salé
+// Jours, saisons, mois et repères de temps — Darija Rabat / Salé
 const CALENDAR_DATA = [
   // Une seule catégorie : Calendrier
   {fr:'Lundi', darija:'Ettnin', arabic:'الاثنين', cat:'Calendrier', note:'jour de la semaine', ex:'Ettnin = lundi'},
@@ -25,7 +25,25 @@ const CALENDAR_DATA = [
   {fr:'Septembre', darija:'Chtanber', arabic:'شتنبر', cat:'Calendrier', note:'forme marocaine courante', ex:'Chtanber = septembre'},
   {fr:'Octobre', darija:'Oktobr', arabic:'أكتوبر', cat:'Calendrier', note:'mois', ex:'Oktobr = octobre'},
   {fr:'Novembre', darija:'Nounber', arabic:'نونبر', cat:'Calendrier', note:'forme marocaine courante', ex:'Nounber = novembre'},
-  {fr:'Décembre', darija:'Doujanber', arabic:'دجنبر', cat:'Calendrier', note:'forme marocaine courante', ex:'Doujanber = décembre'}
+  {fr:'Décembre', darija:'Doujanber', arabic:'دجنبر', cat:'Calendrier', note:'forme marocaine courante', ex:'Doujanber = décembre'},
+
+  {fr:'Heure', darija:'sa3a', arabic:'ساعة', cat:'Calendrier', note:'repère de temps', ex:'sa3a = heure'},
+  {fr:'Minute', darija:'d9i9a', arabic:'دقيقة', cat:'Calendrier', note:'repère de temps', ex:'d9i9a = minute'},
+  {fr:'Seconde', darija:'taniya', arabic:'تانية', cat:'Calendrier', note:'repère de temps', ex:'taniya = seconde'},
+  {fr:'Jour', darija:'nhar', arabic:'نهار', cat:'Calendrier', note:'repère de temps', ex:'nhar = jour'},
+  {fr:'Semaine', darija:'simana', arabic:'سيمانة', cat:'Calendrier', note:'repère de temps', ex:'simana = semaine'},
+  {fr:'Mois', darija:'chher', arabic:'شهر', cat:'Calendrier', note:'repère de temps', ex:'chher = mois'},
+  {fr:'Année', darija:'3am', arabic:'عام', cat:'Calendrier', note:'repère de temps', ex:'3am = année'},
+  {fr:'Matin', darija:'sba7', arabic:'صباح', cat:'Calendrier', note:'moment de la journée', ex:'sba7 = matin'},
+  {fr:'Après-midi', darija:'3chiya', arabic:'العشية', cat:'Calendrier', note:'forme validée', ex:'3chiya = après-midi'},
+  {fr:'Coucher de soleil', darija:'meghreb', arabic:'المغرب', cat:'Calendrier', note:'forme validée', ex:'meghreb = coucher de soleil'},
+  {fr:'Nuit', darija:'lil', arabic:'ليل', cat:'Calendrier', note:'moment de la journée', ex:'lil = nuit'},
+  {fr:'Midi', darija:'ness nehar', arabic:'نص النهار', cat:'Calendrier', note:'forme validée', ex:'ness nehar = midi'},
+  {fr:'Cette semaine', darija:'had essimana', arabic:'هاد السيمانة', cat:'Calendrier', note:'forme validée', ex:'had essimana = cette semaine'},
+  {fr:'La semaine prochaine', darija:'essimana ejjayya', arabic:'السيمانة الجاية', cat:'Calendrier', note:'forme validée', ex:'essimana ejjayya = la semaine prochaine'},
+  {fr:'La semaine dernière', darija:'essimana elfayta', arabic:'السيمانة الفايتة', cat:'Calendrier', note:'forme validée', ex:'essimana elfayta = la semaine dernière'},
+  {fr:'Après-demain', darija:'be3d ghedda', arabic:'بعد غدا', cat:'Calendrier', note:'forme validée', ex:'be3d ghedda = après-demain'},
+  {fr:'Aube', darija:'fjer', arabic:'فجر', cat:'Calendrier', note:'forme validée', ex:'fjer = aube'}
 ];
 
 CALENDAR_DATA.forEach(item => {
