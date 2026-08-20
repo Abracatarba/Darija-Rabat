@@ -6,8 +6,12 @@ let quizPosition = 0;
 let quizCorrect = 0;
 let quizAnswered = false;
 
-function quizCategories(){ return ['Toutes', ...new Set(DATA.map(x => x.cat))]; }
-function quizPool(){ return quizMode === 'Toutes' ? DATA : DATA.filter(x => x.cat === quizMode); }
+function quizCategories(){ return ['Toutes','⭐ Favoris', ...new Set(DATA.map(x => x.cat))]; }
+function quizPool(){
+  if (quizMode === 'Toutes') return DATA;
+  if (quizMode === '⭐ Favoris') return DATA.filter((x,i) => favorites.has(i));
+  return DATA.filter(x => x.cat === quizMode);
+}
 function shuffle(arr){
   const a=[...arr];
   for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
@@ -66,7 +70,9 @@ function showQuizQuestion(){
   const prompt=document.getElementById('qPrompt'); const result=document.getElementById('qResult');
   const choices=document.getElementById('qChoices'); const progress=document.getElementById('qProgress'); const nextBtn=document.getElementById('nextBtn');
   if(!quizQueue.length){
-    if(progress)progress.textContent=''; if(prompt)prompt.textContent='Aucune question disponible'; if(choices)choices.innerHTML=''; if(result)result.textContent=''; if(nextBtn)nextBtn.style.display='none'; return;
+    if(progress)progress.textContent=quizMode==='⭐ Favoris'?'Quiz Favoris':'';
+    if(prompt)prompt.textContent=quizMode==='⭐ Favoris'?'Ajoute d’abord des mots en favoris ⭐':'Aucune question disponible';
+    if(choices)choices.innerHTML=''; if(result)result.textContent=''; if(nextBtn)nextBtn.style.display='none'; return;
   }
   if(quizPosition>=quizQueue.length){ finishQuizSession(); return; }
   currentQuizItem=quizQueue[quizPosition]; qi=DATA.indexOf(currentQuizItem); quizAnswered=false;
@@ -113,7 +119,6 @@ function finishQuizSession(){
   currentQuizItem=null;
 }
 
-// Compatibilité avec le bouton/ancien code de l'application.
 newQ=function(){ startQuizSession(); };
 
 installQuizModeButtons();
