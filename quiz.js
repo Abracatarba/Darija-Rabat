@@ -1,5 +1,6 @@
 // Quiz QCM par catégorie — session complète sans répétition
 let quizMode = 'Toutes';
+let quizDirection = 'fr-darija';
 let currentQuizItem = null;
 let quizQueue = [];
 let quizPosition = 0;
@@ -18,16 +19,31 @@ function shuffle(arr){
   return a;
 }
 function esc(s){ return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function answerValue(x){ return quizDirection==='fr-darija' ? x.darija : x.fr; }
+function promptValue(x){ return quizDirection==='fr-darija' ? x.fr : x.darija; }
 
 function installQuizModeButtons(){
   const section=document.getElementById('quiz');
   const box=section&&section.querySelector('.quizbox');
   if(!box)return;
+
+  let direction=document.getElementById('quizDirection');
+  if(!direction){
+    direction=document.createElement('div'); direction.id='quizDirection'; direction.className='tabs';
+    const badge=box.querySelector('.badge');
+    if(badge) badge.insertAdjacentElement('afterend',direction); else box.prepend(direction);
+  }
+  direction.innerHTML=`<button class="${quizDirection==='fr-darija'?'active':''}" data-dir="fr-darija">Français → Darija</button><button class="${quizDirection==='darija-fr'?'active':''}" data-dir="darija-fr">Darija → Français</button>`;
+  direction.querySelectorAll('[data-dir]').forEach(btn=>btn.onclick=()=>{
+    quizDirection=btn.dataset.dir;
+    installQuizModeButtons();
+    startQuizSession();
+  });
+
   let modes=document.getElementById('quizModes');
   if(!modes){
     modes=document.createElement('div'); modes.id='quizModes'; modes.className='tabs';
-    const badge=box.querySelector('.badge');
-    if(badge) badge.insertAdjacentElement('afterend',modes); else box.prepend(modes);
+    direction.insertAdjacentElement('afterend',modes);
   }
   modes.innerHTML=quizCategories().map(c=>`<button class="${c===quizMode?'active':''}" data-quiz-cat="${esc(c)}">${esc(c)}</button>`).join('');
   modes.querySelectorAll('[data-quiz-cat]').forEach(btn=>btn.onclick=()=>{
@@ -50,9 +66,10 @@ function installQcmUI(){
 }
 
 function buildChoices(correct,pool){
-  let distractors=pool.filter(x=>x!==correct&&x.darija!==correct.darija);
+  const correctAnswer=answerValue(correct);
+  let distractors=pool.filter(x=>x!==correct&&answerValue(x)!==correctAnswer);
   if(distractors.length<3){
-    const extra=DATA.filter(x=>x!==correct&&x.darija!==correct.darija&&!distractors.some(d=>d.darija===x.darija));
+    const extra=DATA.filter(x=>x!==correct&&answerValue(x)!==correctAnswer&&!distractors.some(d=>answerValue(d)===answerValue(x)));
     distractors=distractors.concat(shuffle(extra));
   }
   return shuffle([correct,...shuffle(distractors).slice(0,3)]);
@@ -77,12 +94,12 @@ function showQuizQuestion(){
   if(quizPosition>=quizQueue.length){ finishQuizSession(); return; }
   currentQuizItem=quizQueue[quizPosition]; qi=DATA.indexOf(currentQuizItem); quizAnswered=false;
   if(progress)progress.textContent=`Question ${quizPosition+1} / ${quizQueue.length}`;
-  if(prompt)prompt.textContent=currentQuizItem.fr; if(result)result.textContent='';
+  if(prompt)prompt.textContent=promptValue(currentQuizItem); if(result)result.textContent='';
   if(nextBtn){ nextBtn.style.display=''; nextBtn.textContent=quizPosition===quizQueue.length-1?'Voir mon résultat':'Question suivante'; nextBtn.disabled=true; }
   const options=buildChoices(currentQuizItem,quizPool());
   if(choices){
     choices.dataset.answered='0';
-    choices.innerHTML=options.map(x=>`<button type="button" data-answer="${esc(x.darija)}">${esc(x.darija)}</button>`).join('');
+    choices.innerHTML=options.map(x=>`<button type="button" data-answer="${esc(answerValue(x))}">${esc(answerValue(x))}</button>`).join('');
     choices.querySelectorAll('button').forEach(btn=>btn.onclick=()=>answerQcm(btn.dataset.answer,btn));
   }
 }
@@ -91,27 +108,28 @@ function answerQcm(selected,button){
   if(!currentQuizItem||quizAnswered)return;
   const choices=document.getElementById('qChoices'); if(!choices)return;
   quizAnswered=true; choices.dataset.answered='1';
-  const good=selected===currentQuizItem.darija; if(good)quizCorrect++;
+  const correctAnswer=answerValue(currentQuizItem);
+  const good=selected===correctAnswer; if(good)quizCorrect++;
   [...choices.querySelectorAll('button')].forEach(btn=>{
     btn.disabled=true;
-    if(btn.dataset.answer===currentQuizItem.darija){ btn.style.fontWeight='800'; btn.textContent=`✅ ${btn.dataset.answer}`; }
+    if(btn.dataset.answer===correctAnswer){ btn.style.fontWeight='800'; btn.textContent=`✅ ${btn.dataset.answer}`; }
   });
   const result=document.getElementById('qResult');
-  if(result) result.innerHTML=good?`✅ Correct ! <strong>${esc(currentQuizItem.darija)}</strong> — ${esc(currentQuizItem.arabic)}`:`❌ La bonne réponse était <strong>${esc(currentQuizItem.darija)}</strong> — ${esc(currentQuizItem.arabic)}`;
+  if(result){
+    if(quizDirection==='fr-darija') result.innerHTML=good?`✅ Correct ! <strong>${esc(currentQuizItem.darija)}</strong> — ${esc(currentQuizItem.arabic)}`:`❌ La bonne réponse était <strong>${esc(currentQuizItem.darija)}</strong> — ${esc(currentQuizItem.arabic)}`;
+    else result.innerHTML=good?`✅ Correct ! <strong>${esc(currentQuizItem.fr)}</strong> — ${esc(currentQuizItem.arabic)}`:`❌ La bonne réponse était <strong>${esc(currentQuizItem.fr)}</strong> — ${esc(currentQuizItem.arabic)}`;
+  }
   if(!good&&button)button.textContent=`❌ ${selected}`;
   const nextBtn=document.getElementById('nextBtn'); if(nextBtn)nextBtn.disabled=false;
 }
 
-function nextQuestion(){
-  if(!quizAnswered)return;
-  quizPosition++;
-  showQuizQuestion();
-}
+function nextQuestion(){ if(!quizAnswered)return; quizPosition++; showQuizQuestion(); }
 
 function finishQuizSession(){
   const total=quizQueue.length; const pct=total?Math.round((quizCorrect/total)*100):0; const errors=total-quizCorrect;
   const progress=document.getElementById('qProgress'); const prompt=document.getElementById('qPrompt'); const choices=document.getElementById('qChoices'); const result=document.getElementById('qResult'); const nextBtn=document.getElementById('nextBtn');
-  if(progress)progress.textContent=`Quiz terminé — ${quizMode}`;
+  const dirLabel=quizDirection==='fr-darija'?'Français → Darija':'Darija → Français';
+  if(progress)progress.textContent=`Quiz terminé — ${quizMode} — ${dirLabel}`;
   if(prompt)prompt.textContent=`${quizCorrect} / ${total} bonnes réponses`;
   if(choices)choices.innerHTML=`<div style="text-align:center;font-size:2rem;font-weight:800;padding:18px 0">${pct} %</div>`;
   if(result)result.innerHTML=`${errors===0?'🎉 Sans faute !':`${errors} erreur${errors>1?'s':''} sur ${total}.`} Chaque mot est passé une seule fois.`;
@@ -120,7 +138,6 @@ function finishQuizSession(){
 }
 
 newQ=function(){ startQuizSession(); };
-
 installQuizModeButtons();
 installQcmUI();
 startQuizSession();
